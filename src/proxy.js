@@ -2,14 +2,18 @@ import { NextResponse } from 'next/server'
 
 
 export function proxy(request) {
+     const { pathname } = request.nextUrl
+     if (!pathname.startsWith("/api/feedback")) {
+          return NextResponse.json({
+               status: 404
+          })
+     }
+     return NextResponse.next()
 
 
-
-
-     // Redirect to login page if not authenticated
-     return NextResponse.redirect(new URL('/', request.url))
+     // return NextResponse.redirect(new URL('/', request.url))
 }
 
 export const config = {
-     matcher: '/about/:path*',
+     matcher: '/api/:path*',
 }
