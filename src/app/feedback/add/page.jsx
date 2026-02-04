@@ -1,4 +1,4 @@
-import { connect } from '@/app/lib/dbConnect';
+import { postdataq } from '@/action/feedback/server/feedback';
 import FeedbackForm from '@/components/Form/FeedbackForm';
 import React from 'react';
 
