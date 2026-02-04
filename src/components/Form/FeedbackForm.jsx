@@ -2,22 +2,25 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ postdataq }) => {
      const router = useRouter()
      const handlesubmit = async (e) => {
           e.preventDefault();
           const message = e.target.message.value;
-          const feedbackdata = { message };
-          const res = await fetch('http://localhost:3000/api/feedback', {
-               method: 'POST',
-               headers: {
-                    'Content-Type': 'application/json'
-               },
-               body: JSON.stringify(
-                    feedbackdata
-               )
-          })
-          const data = await res.json();
+          const data = await postdataq(message)
+          // console.log(postdataq)
+          // const feedbackdata = { message };
+          // const res = await fetch(`${process.env.NEXT_PUBLIC_HOSTDATA}/api/feedback`, {
+          //      method: 'POST',
+          //      headers: {
+          //           'Content-Type': 'application/json'
+          //      },
+          //      body: JSON.stringify(
+          //           feedbackdata
+          //      )
+          // })
+          // const data = await res.json();
+          console.log(data.insertedId)
           if (data.insertedId) {
                alert('Feedback submitted successfully');
                router.push('/feedback')

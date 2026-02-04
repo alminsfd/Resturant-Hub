@@ -1,17 +1,17 @@
-import React, { cache } from 'react';
-import { Feedback } from '../api/route ';
+export const dynamic = 'force-dynamic';
 import FeedbackCard from '@/components/cards/FeedbackCard';
 import Link from 'next/link';
-import next from 'next';
+import { connect } from '../lib/dbConnect';
+
 
 export const metadata = {
      title: "Feedback Page"
 }
 
 const getFeedback = async () => {
-     const res = await fetch('http://localhost:3000/api/feedback',
+     const res = await fetch(`${process.env.NEXT_PUBLIC_HOSTDATA}/api/feedback`,
           {
-               cache: 'force-cache',
+               // cache: 'force-cache',
                next: { revalidate: 60 }
           }
      );
@@ -20,7 +20,8 @@ const getFeedback = async () => {
 }
 
 const Feedbackpage = async () => {
-     const feedbacks = await getFeedback()
+     // const feedbacks = await getFeedback() 
+     const feedbacks = await connect('feedback').find().toArray()
      console.log(feedbacks);
      return (
           <div>
